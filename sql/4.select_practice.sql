@@ -53,3 +53,38 @@ FROM vehicles v
 LEFT JOIN reservations r ON v.id = r.vehicle_id
 GROUP BY v.license_plate
 ORDER BY total_reservas DESC;
+
+-- ===============================
+-- 🔴 Nivel 3: Consultas Avanzadas
+-- ===============================
+
+-- 11. Vehículos que están en mantenimiento más de 5 días
+SELECT v.license_plate, m.description,
+       DATEDIFF(CURDATE(), m.start_date) AS dias_en_mantenimiento
+FROM maintenance m
+JOIN vehicles v ON m.vehicle_id = v.id
+WHERE m.end_date IS NULL AND DATEDIFF(CURDATE(), m.start_date) > 5;
+
+-- 12. Modelo de auto más reservado
+SELECT v.model, COUNT(r.id) AS total
+FROM vehicles v
+JOIN reservations r ON v.id = r.vehicle_id
+GROUP BY v.model
+ORDER BY total DESC
+LIMIT 1;
+
+-- 13. Días con mayor cantidad de reservas realizadas
+SELECT DATE(start_time) AS dia, COUNT(*) AS cantidad_reservas
+FROM reservations
+GROUP BY dia
+ORDER BY cantidad_reservas DESC
+LIMIT 5;
+
+-- 14. Estación con más vehículos reservados actualmente
+SELECT s.name, COUNT(v.id) AS cantidad_reservados
+FROM stations s
+JOIN vehicles v ON s.id = v.station_id
+WHERE v.status = 'reserved'
+GROUP BY s.name
+ORDER BY cantidad_reservados DESC
+LIMIT 1;
