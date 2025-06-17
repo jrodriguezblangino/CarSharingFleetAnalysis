@@ -1,0 +1,41 @@
+-- ============================================================================
+-- Práctica de JOINS
+-- ============================================================================
+
+-- ===============================
+-- INNER JOIN
+-- ===============================
+
+-- 1. Obtener las reservas junto con la información del vehículo reservado
+SELECT r.id AS reserva_id, r.start_time, r.end_time, v.license_plate, v.model
+FROM reservations r
+INNER JOIN vehicles v ON r.vehicle_id = v.id;
+
+-- 2. Mostrar los mantenimientos activos y los datos del vehículo asociado
+SELECT m.id AS mantenimiento_id, v.license_plate, m.description, m.start_date
+FROM maintenance m
+INNER JOIN vehicles v ON m.vehicle_id = v.id
+WHERE m.end_date IS NULL;
+
+-- 3. Obtener todos los vehículos junto con su estación actual
+SELECT v.license_plate, v.model, s.name AS estacion
+FROM vehicles v
+INNER JOIN stations s ON v.station_id = s.id;
+
+-- ===============================
+-- LEFT / RIGHT JOIN
+-- ===============================
+
+-- 4. Mostrar todas las estaciones aunque no tengan vehículos asignados
+SELECT s.name AS estacion, v.license_plate
+FROM stations s
+LEFT JOIN vehicles v ON s.id = v.station_id
+ORDER BY s.name;
+
+-- 5. Listar todos los vehículos aunque no tengan reservas registradas
+SELECT v.license_plate, r.id AS reserva_id, r.start_time
+FROM vehicles v
+LEFT JOIN reservations r ON v.id = r.vehicle_id
+ORDER BY v.license_plate;
+
+-- ===============================
