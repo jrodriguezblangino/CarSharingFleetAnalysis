@@ -38,4 +38,19 @@ FROM vehicles v
 LEFT JOIN reservations r ON v.id = r.vehicle_id
 ORDER BY v.license_plate;
 
+
 -- ===============================
+-- FULL OUTER JOIN
+-- ===============================
+
+-- 7. Simular un FULL OUTER JOIN entre vehículos y reservas
+-- (MySQL no soporta FULL OUTER JOIN directamente)
+SELECT v.license_plate, r.id AS reserva_id, r.start_time
+FROM vehicles v
+LEFT JOIN reservations r ON v.id = r.vehicle_id
+
+UNION
+
+SELECT v.license_plate, r.id AS reserva_id, r.start_time
+FROM vehicles v
+RIGHT JOIN reservations r ON v.id = r.vehicle_id;
