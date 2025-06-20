@@ -64,3 +64,46 @@ FROM (
   JOIN reservations r ON v.id = r.vehicle_id
 ) AS t
 GROUP BY model;
+
+-- ================================
+-- Subqueries correlacionadas
+-- ================================
+
+-- 8. Mostrar todas las reservas que son más largas que el promedio de ese vehículo
+SELECT r.*
+FROM reservations r
+WHERE TIMESTAMPDIFF(MINUTE, r.start_time, r.end_time) >
+(
+  SELECT AVG(TIMESTAMPDIFF(MINUTE, r2.start_time, r2.end_time))
+  FROM reservations r2
+  WHERE r2.vehicle_id = r.vehicle_id
+);
+
+-- 9. Mostrar vehículos cuya cantidad de reservas supera el promedio general de reservas por vehículo
+SELECT v.license_plate
+FROM vehicles v
+WHERE (
+  SELECT COUNT(*)
+  FROM reservations r
+  WHERE r.vehicle_id = v.id
+) > (
+  SELECT AVG(cnt)
+  FROM (
+    SELECT vehicle_id, COUNT(*) AS cnt
+    FROM reservations
+    GROUP BY vehicle_id
+  ) AS sub_avg
+);
+
+-- 10. Mostrar las estaciones donde todos los vehículos tienen al menos una reserva
+-- (subquery anidada + correlación + lógica de conjuntos)
+SELECT s.name
+FROM stations s
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM vehicles v
+  WHERE v.station_id = s.id
+  AND v.id NOT IN (
+    SELECT DISTINCT vehicle_id FROM reservations
+  )
+);
