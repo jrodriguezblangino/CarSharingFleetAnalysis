@@ -41,3 +41,26 @@ WHERE id IN (
 SELECT *
 FROM vehicles
 WHERE id NOT IN (SELECT vehicle_id FROM reservations);
+
+-- ================================
+--Subqueries en FROM
+-- ================================
+
+-- 6. Obtener el total de reservas por vehículo, y mostrar solo aquellos con más de 2 reservas
+SELECT *
+FROM (
+  SELECT vehicle_id, COUNT(*) AS total_reservas
+  FROM reservations
+  GROUP BY vehicle_id
+) AS sub
+WHERE total_reservas > 2;
+
+-- 7. Obtener la duración promedio de las reservas (en minutos) por modelo de vehículo
+SELECT model, ROUND(AVG(duracion_min), 1) AS promedio
+FROM (
+  SELECT v.model,
+         TIMESTAMPDIFF(MINUTE, r.start_time, r.end_time) AS duracion_min
+  FROM vehicles v
+  JOIN reservations r ON v.id = r.vehicle_id
+) AS t
+GROUP BY model;
