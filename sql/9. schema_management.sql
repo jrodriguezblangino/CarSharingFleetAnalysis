@@ -48,3 +48,18 @@ ALTER TABLE estaciones RENAME COLUMN direccion TO ubicacion;
 DESCRIBE estaciones;
 
 -- ===============================
+-- RENAME TABLE y creación de respaldo
+-- ===============================
+
+-- Crear una copia de seguridad de la tabla vehiculos
+CREATE TABLE vehiculos_backup AS
+SELECT * FROM vehiculos;
+
+-- Verificar que la copia se haya creado
+SELECT * FROM vehiculos_backup;
+
+-- Renombar la tabla original como "vehiculos_activos"
+RENAME TABLE vehiculos TO vehiculos_activos;
+
+-- Renombrar la copia como "vehiculos"
+RENAME TABLE vehiculos_backup TO vehiculos;
