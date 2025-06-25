@@ -35,3 +35,16 @@ DESCRIBE usuarios;
 ALTER TABLE usuarios DROP COLUMN nivel_cliente;
 
 -- ===============================
+-- ALTER TABLE – Modificar tipos de datos y renombrar columnas
+-- ===============================
+
+-- Modificar el tipo de dato de la columna 'metodo_pago' en la tabla pagos
+ALTER TABLE pagos MODIFY COLUMN metodo_pago VARCHAR(50);
+
+-- Renombraruna columna para mayor claridad
+ALTER TABLE estaciones RENAME COLUMN direccion TO ubicacion;
+
+-- Confirmar los cambios
+DESCRIBE estaciones;
+
+-- ===============================
