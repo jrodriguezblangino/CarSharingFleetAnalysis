@@ -68,3 +68,28 @@ CALL estado_ticket(1);
 //
 
 -- ===============================
+-- Procedimiento con múltiples acciones (UPDATE + SELECT)
+-- ===============================
+-- Marca un ticket como pagado y luego muestra todos los tickets del vehículo
+
+CREATE PROCEDURE pagar_ticket(
+    IN ticket_id INT
+)
+BEGIN
+    UPDATE tickets
+    SET estado = 'pagado'
+    WHERE id = ticket_id;
+
+    SELECT * FROM tickets
+    WHERE vehiculo_id = (
+        SELECT vehiculo_id FROM tickets WHERE id = ticket_id
+    );
+END;
+//
+
+-- Ejecutamos el procedimiento
+CALL pagar_ticket(3);
+//
+
+
+
