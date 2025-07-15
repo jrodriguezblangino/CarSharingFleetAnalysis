@@ -39,3 +39,32 @@ END;
 -- Ejecutamos el procedimiento
 CALL vehiculos_por_estacion(2);
 //
+
+-- ===============================
+-- Procedimiento con lógica condicional
+-- ===============================
+-- Devuelve un mensaje según el estado del ticket recibido por ID
+
+CREATE PROCEDURE estado_ticket(IN ticket_id INT)
+BEGIN
+    DECLARE estado_actual VARCHAR(50);
+
+    SELECT estado INTO estado_actual
+    FROM tickets
+    WHERE id = ticket_id;
+
+    IF estado_actual = 'pendiente' THEN
+        SELECT '⚠️ El ticket aún está pendiente' AS mensaje;
+    ELSEIF estado_actual = 'pagado' THEN
+        SELECT '✅ El ticket ya fue pagado' AS mensaje;
+    ELSE
+        SELECT '❓ Estado desconocido' AS mensaje;
+    END IF;
+END;
+//
+
+-- Ejecutamos el procedimiento
+CALL estado_ticket(1);
+//
+
+-- ===============================
