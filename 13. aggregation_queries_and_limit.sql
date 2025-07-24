@@ -35,3 +35,19 @@ SELECT MIN(start_date) AS primer_mantenimiento FROM maintenance;
 -- d) Última fecha de mantenimiento finalizado
 SELECT MAX(end_date) AS ultimo_mantenimiento FROM maintenance
 WHERE end_date IS NOT NULL
+
+-- ============================================================================
+-- 3. AVG – Promedios
+-- ============================================================================
+
+-- a) Promedio de capacidad de las estaciones
+SELECT AVG(capacity) AS capacidad_promedio FROM stations;
+
+
+-- ============================================================================
+-- 4. SUM – Suma de valores
+-- ============================================================================
+
+-- a) Suma total de la capacidad del sistema (todas las estaciones)
+SELECT SUM(capacity) AS capacidad_total FROM stations;
+
