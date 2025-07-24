@@ -51,3 +51,39 @@ SELECT AVG(capacity) AS capacidad_promedio FROM stations;
 -- a) Suma total de la capacidad del sistema (todas las estaciones)
 SELECT SUM(capacity) AS capacidad_total FROM stations;
 
+
+- ============================================================================
+-- 5. LIMIT y OFFSET
+-- ============================================================================
+
+-- a) Mostrar los primeros 5 vehículos ordenados por modelo (alfabéticamente)
+SELECT license_plate, model FROM vehicles
+ORDER BY model ASC
+LIMIT 5;
+
+-- b) Mostrar 5 vehículos, omitiendo los primeros 5 (paginación)
+SELECT license_plate, model FROM vehicles
+ORDER BY model ASC
+LIMIT 5 OFFSET 5;
+
+-- c) Mostrar las 3 estaciones con mayor capacidad
+SELECT name, capacity FROM stations
+ORDER BY capacity DESC
+LIMIT 3;
+
+-- d) Últimas 5 reservas registradas
+SELECT * FROM reservations
+ORDER BY created_at DESC
+LIMIT 5;
+
+
+-- ============================================================================
+-- 6. Combinado: Agregaciones + LIMIT
+-- ============================================================================
+
+-- a) Top 5 estaciones con mayor capacidad y su porcentaje respecto al total
+SELECT name, capacity,
+    ROUND((capacity / (SELECT SUM(capacity) FROM stations)) * 100, 2) AS porcentaje
+FROM stations
+ORDER BY capacity DESC
+LIMIT 5;
