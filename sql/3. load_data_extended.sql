@@ -63,7 +63,7 @@ INSERT INTO vehicles (station_id, license_plate, model, status) VALUES
 (8, 'AA039AA', 'Honda Prologue', 'in_use'),
 (9, 'AA040AA', 'Lucid Air', 'available');
 
--- 50 reservas (usuarios y fechas variadas)
+-- 50 reservas con usuarios y fechas variadas
 INSERT INTO reservations (vehicle_id, user_id, start_time, end_time) VALUES
 (1, 201, '2025-06-01 08:00:00', '2025-06-01 12:00:00'),
 (2, 202, '2025-06-02 09:00:00', '2025-06-02 10:30:00'),
