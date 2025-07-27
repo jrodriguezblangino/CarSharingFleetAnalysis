@@ -16,7 +16,7 @@ CREATE TABLE stations (
 -- 2) Tabla de vehículos
 CREATE TABLE vehicles (
     vehicle_id    INT AUTO_INCREMENT PRIMARY KEY,
-    station_id    INT          NOT NULL,      -- estación donde está el vehículo
+    station_id    INT          NOT NULL,     
     license_plate VARCHAR(20)  NOT NULL UNIQUE,
     model         VARCHAR(50)  NOT NULL,
     status        ENUM('available','reserved','in_use','maintenance') NOT NULL DEFAULT 'available',
