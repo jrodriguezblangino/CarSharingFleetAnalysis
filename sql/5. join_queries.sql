@@ -75,15 +75,3 @@ GROUP BY v.model
 ORDER BY promedio_minutos DESC;
 
 ===============================
--- SELF JOIN
--- ===============================
-
--- 10. Encontrar vehículos del mismo modelo pero con distinta estación
-SELECT v1.license_plate AS vehiculo_1, v2.license_plate AS vehiculo_2, v1.model, s1.name AS estacion_1, s2.name AS estacion_2
-FROM vehicles v1
-JOIN vehicles v2 ON v1.model = v2.model AND v1.id <> v2.id
-JOIN stations s1 ON v1.station_id = s1.id
-JOIN stations s2 ON v2.station_id = s2.id
-WHERE v1.station_id <> v2.station_id
-ORDER BY v1.model;
-
