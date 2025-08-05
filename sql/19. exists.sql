@@ -60,3 +60,17 @@ WHERE EXISTS (
 );
 
 -- Devuelve vehículos con mantenimiento actual (no finalizado)
+
+-- ============================================================================
+-- 5. Usuarios con múltiples reservas (usando EXISTS + subconsulta anidada)
+-- ============================================================================
+SELECT DISTINCT r1.user_id
+FROM reservations r1
+WHERE EXISTS (
+    SELECT 1 FROM reservations r2
+    WHERE r2.user_id = r1.user_id
+      AND r2.reservation_id != r1.reservation_id
+);
+
+
+-- Encuentra usuarios que tienen más de una reserva (comprobando si existe otra).
