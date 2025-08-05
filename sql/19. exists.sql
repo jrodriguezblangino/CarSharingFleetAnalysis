@@ -49,3 +49,14 @@ WHERE NOT EXISTS (
 
 -- Esta es una forma común de encontrar entidades huerfanas
 
+-- ============================================================================
+-- 4. Vehículos con al menos un mantenimiento activo
+-- ============================================================================
+SELECT * FROM vehicles v
+WHERE EXISTS (
+    SELECT 1 FROM maintenance m
+    WHERE m.vehicle_id = v.vehicle_id
+      AND m.end_date IS NULL
+);
+
+-- Devuelve vehículos con mantenimiento actual (no finalizado)
