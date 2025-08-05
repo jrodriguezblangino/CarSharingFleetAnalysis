@@ -37,3 +37,15 @@ WHERE EXISTS (
 );
 -- Similar a hacer un JOIN, pero más eficiente si solo queremos saber si existe la relación. 
 -- USO MAS EFICIENTE DE MEMORIA
+
+-- ============-================================================================
+-- 3. Vehículos que nunca han sido reservados (NOT EXISTS)
+-- ============================================================================
+SELECT * FROM vehicles v
+WHERE NOT EXISTS (
+    SELECT 1 FROM reservations r
+    WHERE r.vehicle_id = v.vehicle_id
+);
+
+-- Esta es una forma común de encontrar entidades huerfanas
+
