@@ -48,5 +48,32 @@ WHERE vehicle_id = ANY (
 
 
 
+-- ============================================================================
+-- 2. ALL 
+-- ============================================================================
+
+-- a) Mostrar estaciones cuya capacidad es mayor que la de todas las estaciones con ID menor a 10
+SELECT * FROM stations
+WHERE capacity > ALL (
+    SELECT capacity FROM stations
+    WHERE station_id < 10
+);
+
+-- Solo devolverá estaciones cuya capacidad supera a todas las estaciones anteriores a ID 10.
+
+
+-- b) Vehículos en estaciones con menor capacidad que todas las demás
+SELECT * FROM vehicles v
+WHERE v.station_id = ANY (
+    SELECT station_id FROM stations
+    WHERE capacity < ALL (
+        SELECT capacity FROM stations
+    )
+);
+
+-- Esto devuelve los vehículos ubicados en la(s) estación(es) de menor capacidad.
+
+
+
 
 
