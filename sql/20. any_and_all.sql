@@ -73,6 +73,29 @@ WHERE v.station_id = ANY (
 
 -- Esto devuelve los vehículos ubicados en la(s) estación(es) de menor capacidad.
 
+-- ============================================================================
+-- Comparar duración de reserva con ANY / ALL
+-- ============================================================================
+-- a) Reservas cuya duración es mayor que cualquiera de las otras
+SELECT * FROM reservations r1
+WHERE TIMESTAMPDIFF(MINUTE, r1.start_time, r1.end_time) >
+      ANY (
+          SELECT TIMESTAMPDIFF(MINUTE, r2.start_time, r2.end_time)
+          FROM reservations r2
+          WHERE r1.reservation_id != r2.reservation_id
+      );
+
+-- b) Reservas cuya duración es mayor que TODAS las demás
+SELECT * FROM reservations r1
+WHERE TIMESTAMPDIFF(MINUTE, r1.start_time, r1.end_time) >
+      ALL (
+          SELECT TIMESTAMPDIFF(MINUTE, r2.start_time, r2.end_time)
+          FROM reservations r2
+          WHERE r1.reservation_id != r2.reservation_id
+      );
+
+
+-- Ejemplo para encontrar la reserva más larga (con ALL) o entre las más largas (con ANY).
 
 
 
