@@ -84,4 +84,15 @@ GROUP BY s.station_id;
 -- Demuestra que INSERT INTO SELECT no se limita a una sola tabla, sino que puede
 -- usar resultados combinados de varias.
 
+-- ============================================================================
+-- 5. Copia de seguridad rápida de reservas recientes
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS reservations_recent_backup AS
+SELECT * FROM reservations WHERE 1=0; -- estructura vacía
+
+INSERT INTO reservations_recent_backup
+SELECT * FROM reservations
+WHERE start_time >= '2025-06-01';
+
+-- Muy útil para hacer backups selectivos o exportar subconjuntos de datos
 
