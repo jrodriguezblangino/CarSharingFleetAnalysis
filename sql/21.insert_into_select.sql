@@ -28,4 +28,23 @@ INSERT INTO vehicles_backup
 SELECT * FROM vehicles
 WHERE status = 'available';
 
--- Copia todos los campos y filas que cumplen la condición.
+-- Copia todos los campos y filas que cumplen la condición
+
+-- ============================================================================
+-- 2. Insertar datos seleccionando columnas específicas
+-- ============================================================================
+-- Crear tabla de modelos populares
+CREATE TABLE IF NOT EXISTS popular_models (
+    model VARCHAR(50),
+    total_reservas INT
+);
+
+-- Insertar modelos con más de 3 reservas
+INSERT INTO popular_models (model, total_reservas)
+SELECT v.model, COUNT(r.reservation_id) AS total_reservas
+FROM vehicles v
+JOIN reservations r ON v.vehicle_id = r.vehicle_id
+GROUP BY v.model
+HAVING COUNT(r.reservation_id) > 3;
+
+-- Aquí no copiamos toda la tabla, sino columnas puntuales con agregaciones.
