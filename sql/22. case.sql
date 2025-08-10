@@ -73,3 +73,25 @@ SELECT
 FROM vehicles
 GROUP BY categoria;
 
+-- ============================================================================
+-- 5. CASE en cláusula ORDER BY
+-- ============================================================================
+-- Ordenar estaciones por prioridad: primero altas, luego medias, luego bajas
+SELECT
+    name,
+    capacity,
+    CASE
+        WHEN capacity >= 15 THEN 'Alta'
+        WHEN capacity BETWEEN 8 AND 14 THEN 'Media'
+        ELSE 'Baja'
+    END AS categoria
+FROM stations
+ORDER BY
+    CASE
+        WHEN capacity >= 15 THEN 1
+        WHEN capacity BETWEEN 8 AND 14 THEN 2
+        ELSE 3
+    END ASC;
+
+
+
