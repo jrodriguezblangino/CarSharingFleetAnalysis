@@ -57,3 +57,19 @@ SELECT
 FROM reservations;
 
 -- Podemos combinar funciones y operaciones dentro de CASE para mayor control.
+
+-- ============================================================================
+-- 4. CASE en combinación con agregaciones
+-- ============================================================================
+-- Contar vehículos según categoría de estado
+SELECT
+    CASE
+        WHEN status = 'available' THEN 'Disponibles'
+        WHEN status = 'reserved' THEN 'Reservados'
+        WHEN status = 'in_use' THEN 'En uso'
+        WHEN status = 'maintenance' THEN 'En mantenimiento'
+    END AS categoria,
+    COUNT(*) AS total
+FROM vehicles
+GROUP BY categoria;
+
