@@ -6,7 +6,7 @@
 USE carsharefleet;
 
 -- IMPORTANTE: delimitadores personalizados para definir procedimientos
-DELIMITER //
+DELIMITER $$
 
 -- ===============================
 -- Stored Procedure básico sin parámetros
