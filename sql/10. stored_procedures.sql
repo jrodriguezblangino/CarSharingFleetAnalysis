@@ -65,8 +65,7 @@ $$
 
 -- Ejecutamos el procedimiento
 CALL estado_ticket(1);
-//
-
+$$
 -- ===============================
 -- Procedimiento con múltiples acciones (UPDATE + SELECT)
 -- ===============================
@@ -85,11 +84,10 @@ BEGIN
         SELECT vehiculo_id FROM tickets WHERE id = ticket_id
     );
 END;
-//
+$$
 
 -- Ejecutamos el procedimiento
 CALL pagar_ticket(3);
-//
-
+$$
 
 
