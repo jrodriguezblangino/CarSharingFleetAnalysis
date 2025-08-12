@@ -17,11 +17,11 @@ CREATE PROCEDURE contar_usuarios()
 BEGIN
     SELECT COUNT(*) AS total_usuarios FROM usuarios;
 END;
-//
+$$
 
 -- Ejecutamos el procedimiento
 CALL contar_usuarios();
-//
+$$
 
 -- ===============================
 -- Procedimiento con parámetro de entrada
@@ -34,11 +34,11 @@ BEGIN
     FROM vehiculos
     WHERE estacion_id = estacion_id;
 END;
-//
+$$
 
 -- Ejecutamos el procedimiento
 CALL vehiculos_por_estacion(2);
-//
+$$
 
 -- ===============================
 -- Procedimiento con lógica condicional
@@ -61,7 +61,7 @@ BEGIN
         SELECT '❓ Estado desconocido' AS mensaje;
     END IF;
 END;
-//
+$$
 
 -- Ejecutamos el procedimiento
 CALL estado_ticket(1);
